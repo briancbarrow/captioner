@@ -49,7 +49,7 @@ const MainNav = ({
             ))}
           </ul>
         </li>
-        <li>
+        {/* <li>
           <div className="text-xs font-semibold leading-6 text-zinc-400 uppercase">
             Recent transcripts
           </div>
@@ -73,7 +73,7 @@ const MainNav = ({
               </li>
             ))}
           </ul>
-        </li>
+        </li> */}
         <li className="-mx-6 mt-auto">
           <MiniProfile />
         </li>

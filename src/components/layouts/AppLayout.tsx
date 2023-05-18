@@ -25,12 +25,6 @@ type AppLayout = {
   children: React.ReactNode;
 };
 
-const recents = [
-  { id: 1, name: "Planetaria", href: "#", initial: "P", current: false },
-  { id: 2, name: "Protocol", href: "#", initial: "P", current: false },
-  { id: 3, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-];
-
 const AppLayout = ({ children }: AppLayout) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
@@ -42,45 +36,7 @@ const AppLayout = ({ children }: AppLayout) => {
     current: router.route === "/app",
   };
 
-  const navigation: Navigation = [
-    home,
-    {
-      name: "Projects",
-      href: "/app/projects",
-      icon: BoltIcon,
-      current: router.route.startsWith("/app/projects"),
-    },
-    {
-      name: "Transcripts",
-      href: "/app/transcripts",
-      icon: DocumentTextIcon,
-      current: router.route.startsWith("/app/transcripts"),
-    },
-    {
-      name: "Requests",
-      href: "/app/requests",
-      icon: ArrowUpOnSquareIcon,
-      current: router.route.startsWith("/app/requests"),
-    },
-    {
-      name: "Callbacks",
-      href: "/app/callbacks",
-      icon: ArrowDownOnSquareIcon,
-      current: router.route.startsWith("/app/callbacks"),
-    },
-    {
-      name: "Webhooks",
-      href: "/app/webhooks",
-      icon: ArrowRightOnRectangleIcon,
-      current: router.route.startsWith("/app/webhooks"),
-    },
-    {
-      name: "Files",
-      href: "/app/files",
-      icon: FolderIcon,
-      current: router.route.startsWith("/app/files"),
-    },
-  ];
+  const navigation: Navigation = [home];
 
   const breadcrumbs = (): Navigation => {
     let crumbs: Navigation = [home];
@@ -200,7 +156,7 @@ const AppLayout = ({ children }: AppLayout) => {
                             ))}
                           </ul>
                         </li>
-                        <li>
+                        {/* <li>
                           <div className="text-xs font-semibold leading-6 text-zinc-400">
                             Your teams
                           </div>
@@ -226,7 +182,7 @@ const AppLayout = ({ children }: AppLayout) => {
                               </li>
                             ))}
                           </ul>
-                        </li>
+                        </li> */}
                         <li className="-mx-6 mt-auto">
                           <a
                             href="#"
@@ -261,7 +217,7 @@ const AppLayout = ({ children }: AppLayout) => {
               </h1>
             </div>
 
-            <MainNav navigation={navigation} recents={recents} />
+            <MainNav navigation={navigation} />
           </div>
         </div>
 

@@ -14,7 +14,6 @@ export interface Database {
           avatar_url: string | null
           full_name: string | null
           id: string
-          onboarded: boolean
           updated_at: string | null
           username: string | null
           website: string | null
@@ -23,7 +22,6 @@ export interface Database {
           avatar_url?: string | null
           full_name?: string | null
           id: string
-          onboarded?: boolean
           updated_at?: string | null
           username?: string | null
           website?: string | null
@@ -32,33 +30,9 @@ export interface Database {
           avatar_url?: string | null
           full_name?: string | null
           id?: string
-          onboarded?: boolean
           updated_at?: string | null
           username?: string | null
           website?: string | null
-        }
-      }
-      projects: {
-        Row: {
-          api_key: string
-          id: number
-          name: string | null
-          project_id: string
-          user_id: string | null
-        }
-        Insert: {
-          api_key: string
-          id?: number
-          name?: string | null
-          project_id: string
-          user_id?: string | null
-        }
-        Update: {
-          api_key?: string
-          id?: number
-          name?: string | null
-          project_id?: string
-          user_id?: string | null
         }
       }
     }
@@ -66,19 +40,7 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      delete_avatar: {
-        Args: {
-          avatar_url: string
-        }
-        Returns: Record<string, unknown>
-      }
-      delete_storage_object: {
-        Args: {
-          bucket: string
-          object: string
-        }
-        Returns: Record<string, unknown>
-      }
+      [_ in never]: never
     }
     Enums: {
       [_ in never]: never
