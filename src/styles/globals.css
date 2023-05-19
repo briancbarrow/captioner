@@ -17,7 +17,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: #fbfbff;
   background: linear-gradient(
       to bottom,
       transparent,
@@ -53,4 +53,12 @@ body {
 
 .prose a.special-cta:hover {
   @apply bg-gradient-to-r from-red-400 to-orange-400;
+}
+
+#message-body {
+  overflow-anchor: none;
+}
+#anchor {
+  overflow-anchor: auto;
+  height: 1px;
 }

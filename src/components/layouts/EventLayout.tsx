@@ -38,9 +38,7 @@ const EventLayout = ({ children }: EventLayout) => {
       <EventHeader />
       <div className="w-full h-full bg-black">
         <div>
-          <main className="p-8 max-w-none prose dark:prose-invert">
-            {children}
-          </main>
+          <main className="px-8 pt-3 h-[80vh] max-w-none">{children}</main>
         </div>
       </div>
     </div>

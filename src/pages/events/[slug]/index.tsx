@@ -42,7 +42,13 @@ const EventHome: NextPage = () => {
             // console.log("newTranscript", newTranscript);
             // setTranscript(newTranscript);
             const messageBody = document.getElementById("message-body");
+            const anchor = document.getElementById("anchor");
             messageBody ? (messageBody.innerText += "\n" + msg) : null;
+            function scrollBottom(element: HTMLElement) {
+              element.scroll({ top: element.scrollHeight, behavior: "smooth" });
+            }
+
+            if (anchor) anchor.scrollIntoView({ behavior: "smooth" });
           });
         });
         socket.on("connect_error", (err: any) => {
@@ -53,7 +59,13 @@ const EventHome: NextPage = () => {
 
   return (
     <EventLayout>
-      <p id="message-body">{transcript}</p>
+      <div
+        className={`text-[40px] max-h-[80vh] overflow-scroll`}
+        style={{ overflowAnchor: "none" }}
+      >
+        <p id="message-body">{transcript}</p>
+        <div id="anchor"></div>
+      </div>
     </EventLayout>
   );
 };

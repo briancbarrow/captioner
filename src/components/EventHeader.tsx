@@ -2,7 +2,7 @@ import styles from "../styles/style.module.css";
 const EventHeader = () => {
   return (
     <header
-      className={`flex h-[124px] w-full items-center justify-center ${styles.header}`}
+      className={`flex h-[15vh] w-full shrink-0 items-center justify-center ${styles.header}`}
     >
       <svg
         className="logo"
