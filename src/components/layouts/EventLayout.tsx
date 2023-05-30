@@ -24,18 +24,16 @@ import EventHeader from "../EventHeader";
 
 type EventLayout = {
   children: React.ReactNode;
+  eventName: string;
+  type?: "broadcast" | "viewer";
 };
 
-// const recents = [
-//   { id: 1, name: "Planetaria", href: "#", initial: "P", current: false },
-//   { id: 2, name: "Protocol", href: "#", initial: "P", current: false },
-//   { id: 3, name: "Tailwind Labs", href: "#", initial: "T", current: false },
-// ];
-
-const EventLayout = ({ children }: EventLayout) => {
+const EventLayout = ({ eventName, type, children }: EventLayout) => {
   return (
     <div className="flex flex-col h-screen items-center justify-center">
-      <EventHeader />
+      <EventHeader
+        eventName={type === "broadcast" ? eventName + " Broadcast" : eventName}
+      />
       <div className="w-full h-full bg-black">
         <div>
           <main className="px-8 pt-3 h-[80vh] max-w-none">{children}</main>

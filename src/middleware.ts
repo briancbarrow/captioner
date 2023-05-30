@@ -8,7 +8,7 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const supabase = createMiddlewareSupabaseClient<Database>({ req, res });
   const session = await supabase.auth.getSession();
-
+  // console.log("session", session);
   if (session.data.session === null) {
     return NextResponse.redirect(new URL("/", req.url));
   }
@@ -17,5 +17,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: "/app/:path*",
+  matcher: ["/app/:path*", "/events/:path*/broadcast"],
 };

@@ -1,5 +1,5 @@
 import styles from "../styles/style.module.css";
-const EventHeader = () => {
+const EventHeader = (props: { eventName: string }) => {
   return (
     <header
       className={`flex h-[15vh] w-full shrink-0 items-center justify-center ${styles.header}`}
@@ -19,7 +19,7 @@ const EventHeader = () => {
         ></path>
       </svg>
       <div className="ml-[12px] text-white text-[36px] font-favorit">
-        Event Captioner
+        Event Captioner {props.eventName}
       </div>
     </header>
   );
