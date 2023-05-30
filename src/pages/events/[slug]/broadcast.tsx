@@ -78,6 +78,7 @@ const EventHome: NextPage = () => {
       console.log("error", resp.error);
       return alert(resp.error);
     }
+    setDgKey(resp.deepgramToken);
 
     ws = new WebSocket(
       "wss://api.deepgram.com/v1/listen?tier=enhanced&punctuate=true",
