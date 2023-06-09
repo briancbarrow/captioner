@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider, Session } from "@supabase/auth-helpers-react";
 import { Inter } from "next/font/google";
 import { createContext, useContext, useState } from "react";
@@ -27,7 +27,7 @@ const Deepbin = ({
   initialSession: Session;
 }>) => {
   const [language, setLanguage] = useState("");
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
     <SessionContextProvider

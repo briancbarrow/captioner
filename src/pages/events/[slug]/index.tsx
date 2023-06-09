@@ -36,17 +36,6 @@ const EventHome: NextPage = () => {
 
   return (
     <EventLayout eventName={event.title}>
-      {/* button on click send dg-open event to websocket */}
-      {/* {dgClosed ? <button onClick={reopenDgConnection}>Hello</button> : null} */}
-      {/* <div
-        className={`text-[40px] max-h-[81vh] overflow-scroll`}
-        style={{ overflowAnchor: "none" }}
-      >
-        <p id="message-body" className="whitespace-pre-wrap pb-16 text-center">
-          {transcript}
-        </p>
-        <div id="anchor"></div>
-      </div> */}
       <TranscriptDisplay
         eventId={event.id}
         height="81vh"

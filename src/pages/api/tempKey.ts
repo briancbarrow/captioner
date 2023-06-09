@@ -1,10 +1,10 @@
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { Deepgram } from "@deepgram/sdk";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const ProtectedRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   // Create authenticated Supabase Client
-  const supabase = createServerSupabaseClient({ req, res });
+  const supabase = createPagesServerClient({ req, res });
   // Check if we have a session
   const {
     data: { session },
@@ -21,7 +21,6 @@ const ProtectedRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const body = req.body;
     const { eventId, key } = JSON.parse(body);
-    console.log({ eventId, key });
     const { data } = await supabase
       .from("events")
       .select("*")

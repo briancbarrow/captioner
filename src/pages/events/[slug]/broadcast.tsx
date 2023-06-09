@@ -1,4 +1,4 @@
-import EventLayout from "@/components/layouts/EventLayout";
+import AdminLayout from "@/components/layouts/AdminLayout";
 // import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 import type { NextPage } from "next";
@@ -97,23 +97,8 @@ const EventHome: NextPage = () => {
     }
   };
 
-  const logout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.log("error", error);
-      return alert(error.message);
-    }
-    router.push("/");
-  };
-
   return (
-    <EventLayout type="broadcast" eventName={event.title}>
-      <div className="flex justify-between items-center mt-5">
-        <button onClick={logout} className="bg-[#208f68] px-4 py-2 rounded">
-          Log Out
-        </button>
-      </div>
-
+    <AdminLayout type="broadcast" eventName={event.title}>
       <div className="bg-black border-gray-200 border m-6 p-6 text-gray-200 rounded grid md:grid-cols-3 gap-4 md:gap-6 ">
         <div>
           <h2>Step 1</h2>
@@ -211,7 +196,7 @@ const EventHome: NextPage = () => {
         bodyPadding="4"
         eventId={event.id}
       />
-    </EventLayout>
+    </AdminLayout>
   );
 };
 

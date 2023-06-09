@@ -1,8 +1,26 @@
 import styles from "../styles/style.module.css";
-const EventHeader = (props: { eventName: string }) => {
+import { useRouter } from "next/router";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  "https://bztzviwntkfsgbkmbevu.supabase.co",
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ""
+);
+
+const EventHeader = (props: { eventName?: string; isBroadcast?: boolean }) => {
+  const router = useRouter();
+
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.log("error", error);
+      return alert(error.message);
+    }
+    router.push("/");
+  };
   return (
     <header
-      className={`flex h-[15vh] w-full shrink-0 items-center justify-center ${styles.header}`}
+      className={`flex p-6 w-full shrink-0 items-center justify-start bg-zinc-900`}
     >
       <svg
         className="logo"
@@ -19,8 +37,20 @@ const EventHeader = (props: { eventName: string }) => {
         ></path>
       </svg>
       <div className="ml-[12px] text-white text-[36px] font-favorit">
-        Event Captioner {props.eventName}
+        Event Captioner
       </div>
+      <div className="ml-auto text-white text-[36px] font-favorit mr-4">
+        {props.eventName
+          ? props.isBroadcast
+            ? props.eventName + " Broadcast"
+            : props.eventName
+          : ""}
+      </div>
+      {props.isBroadcast ? (
+        <button onClick={logout} className="bg-[#208f68] px-4 py-2 rounded">
+          Log Out
+        </button>
+      ) : null}
     </header>
   );
 };

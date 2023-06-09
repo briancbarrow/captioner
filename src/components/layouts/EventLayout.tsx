@@ -24,7 +24,7 @@ import EventHeader from "../EventHeader";
 
 type EventLayout = {
   children: React.ReactNode;
-  eventName: string;
+  eventName?: string;
   type?: "broadcast" | "viewer";
 };
 
@@ -32,7 +32,8 @@ const EventLayout = ({ eventName, type, children }: EventLayout) => {
   return (
     <div className="flex flex-col h-screen items-center justify-center">
       <EventHeader
-        eventName={type === "broadcast" ? eventName + " Broadcast" : eventName}
+        eventName={eventName}
+        isBroadcast={type === "broadcast" ? true : false}
       />
       <div className="w-full h-full bg-black">
         <div>
