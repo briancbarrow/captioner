@@ -1,7 +1,7 @@
 import AdminLayout from "@/components/layouts/AdminLayout";
 import type { NextPage } from "next";
 import EventCard from "@/components/EventCard";
-import EventUpdateModal from "@/components/EventUpdateModal";
+import EventFormModal from "@/components/EventFormModal";
 import { useEffect, useState } from "react";
 import {
   createClientComponentClient,
@@ -40,15 +40,27 @@ const EventHome: NextPage = () => {
   useEffect(() => {
     getEvents().catch((err) => console.log(err));
   }, []);
+  const openModal = () => {
+    setShowModal(true);
+  };
 
   return (
     <AdminLayout>
-      <h1>Your Events</h1>
+      <button onClick={openModal} className="bg-green-500 px-4 rounded-sm">
+        Create new event
+      </button>
       <div className="mt-8 flex">
         {events.map((event) => (
           <EventCard key={event.id} event={event} refreshEvents={getEvents} />
         ))}
       </div>
+      {showModal && (
+        <EventFormModal
+          open={showModal}
+          closeFunc={closeModal}
+          refreshEvents={getEvents}
+        />
+      )}
     </AdminLayout>
   );
 };
