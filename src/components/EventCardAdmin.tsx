@@ -25,6 +25,9 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
   const [revealKey, setRevealKey] = useState(false);
   const [title, setTitle] = useState(event.title);
   const [slug, setSlug] = useState(event.slug);
+  const [publisher_key, setPublisherKey] = useState(event.publisher_key);
+  const [dgProjectId, setDgProjectId] = useState(event.dg_project);
+  const [dgKey, setDgKey] = useState(event.dg_key);
   const [start_date, setStartDate] = useState(event.start_date);
   const [total_days, setTotalDays] = useState(`${event.total_days}`);
   const [event_prospectus, setEventProspectus] = useState({} as File);
@@ -82,7 +85,7 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
     }, 3000);
   };
 
-  const submitUpdatedEvent = async (updateEvent: any) => {
+  const approveEvent = async (updateEvent: any) => {
     updateEvent.preventDefault();
     if (!validateDateFormat(start_date)) {
       setDateError(true);
@@ -92,7 +95,6 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
       return;
     }
     if (event_prospectus.name) {
-      console.log("event-prospectus", event_prospectus);
       const { data: fileData, error: fileError } = await supabase.storage
         .from("event-prospectus")
         .upload(`${event.id}/Prospectus`, event_prospectus, {
@@ -104,8 +106,6 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
         setProspectusExists(true);
       }
     }
-
-    console.log("event", event);
     const totalDaysAsNumber = parseInt(total_days);
     const data = await supabase
       .from("events")
@@ -113,9 +113,12 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
         {
           title,
           slug,
+          publisher_key,
+          dg_project: dgProjectId,
+          dg_key: dgKey,
           start_date,
           total_days: totalDaysAsNumber,
-          approval_status: "pending",
+          approval_status: "approved",
         },
         { count: "estimated" }
       )
@@ -147,17 +150,6 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
     <div className="flex flex-col justify-center py-4 px-6 bg-zinc-700 border border-white rounded">
       {event.approval_status === "pending" && (
         <>
-          {" "}
-          <button
-            onClick={async () => {
-              await updateEventStatus("approved");
-            }}
-            className={`flex justify-center p-3 text-${
-              approval_status[event.approval_status]
-            } mb-2 border border-${approval_status[event.approval_status]}`}
-          >
-            Approve
-          </button>
           <button
             onClick={async () => {
               await updateEventStatus("rejected");
@@ -209,7 +201,7 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
             className="bg-[#208f68] px-4 py-2 mt-2 rounded"
             onClick={() => setEditMode(true)}
           >
-            Edit
+            Open for approval
           </button>
         </>
       ) : (
@@ -231,13 +223,43 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
             <label htmlFor="slug" className="text-white">
               Event Slug
             </label>
-
             <input
               id="slug"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               className="text-2xl font-bold mb-4"
             />
+
+            <label htmlFor="publisher_key" className="text-white">
+              Publisher Key
+            </label>
+            <input
+              id="publisher_key"
+              value={publisher_key}
+              onChange={(e) => setPublisherKey(e.target.value)}
+              className="text-2xl font-bold mb-4"
+            />
+
+            <label htmlFor="dg_project" className="text-white">
+              DG Project ID
+            </label>
+            <input
+              id="dg_project"
+              value={dgProjectId}
+              onChange={(e) => setDgProjectId(e.target.value)}
+              className="text-2xl font-bold mb-4"
+            />
+
+            <label htmlFor="dg_key" className="text-white">
+              DG Key
+            </label>
+            <input
+              id="dg_key"
+              value={dgKey}
+              onChange={(e) => setDgKey(e.target.value)}
+              className="text-2xl font-bold mb-4"
+            />
+
             <label htmlFor="start_date" className="text-white">
               Start Date (yyyy-mm-dd)
             </label>
@@ -281,9 +303,9 @@ const EventCardAdmin = ({ event, refreshEvents }: EventCardProps) => {
             </button>
             <button
               className="p-2 bg-green-500 text-white rounded-sm"
-              onClick={submitUpdatedEvent}
+              onClick={approveEvent}
             >
-              Update
+              Approve
             </button>
           </div>
 

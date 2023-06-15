@@ -3,6 +3,8 @@ export type DGEvent = {
   title: string;
   slug?: string;
   publisher_key?: string;
+  dg_project: string;
+  dg_key: string;
   approval_status: "approved" | "pending" | "rejected";
   start_date: string;
   total_days: number;

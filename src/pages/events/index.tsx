@@ -27,7 +27,7 @@ const EventHome: NextPage = () => {
     const { data, error } = await supabase
       .from("events")
       .select(
-        "id, title, slug, publisher_key, approval_status, start_date, total_days, user_id, contact_email"
+        "id, title, slug, publisher_key, dg_project, dg_key, approval_status, start_date, total_days, user_id, contact_email"
       )
       .eq("user_id", user?.id);
     if (error) {
